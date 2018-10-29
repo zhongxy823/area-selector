@@ -207,12 +207,19 @@ export default {
   watch: {
     visible (val) {
       let app = document.getElementById(this.targetId)
+      function bodyScroll (event) {
+        event.preventDefault()
+        event.stopPropagation()
+      }
+      let child
       if (val) {
         let div = document.createElement('div')
         div.id = 'mask'
         app.appendChild(div)
+        child = document.getElementById('mask')
+        child.addEventListener('touchmove', bodyScroll)
       } else {
-        var child = document.getElementById('mask')
+        child = document.getElementById('mask')
         child.parentNode.removeChild(child)
       }
     }
